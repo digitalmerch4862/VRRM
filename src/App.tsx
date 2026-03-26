@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { 
   Phone, 
   MapPin, 
@@ -14,7 +15,12 @@ import {
   ExternalLink,
   ChefHat,
   ShieldCheck,
-  MessageCircle
+  MessageCircle,
+  MessageSquare,
+  Send,
+  X,
+  User,
+  Bot
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -468,6 +474,159 @@ export default function App() {
           </div>
         </div>
       </footer>
+      <ChatBot />
+    </div>
+  );
+}
+
+function ChatBot() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { id: 1, text: "Hello! Welcome to VRRM FOOD HOUSE. How can I help you today?", sender: 'bot' }
+  ]);
+  const [inputValue, setInputValue] = useState('');
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSendMessage = (e: FormEvent) => {
+    e.preventDefault();
+    if (!inputValue.trim()) return;
+
+    const userMessage = { id: Date.now(), text: inputValue, sender: 'user' };
+    setMessages(prev => [...prev, userMessage]);
+    setInputValue('');
+
+    // Dummy AI Response
+    setTimeout(() => {
+      const botResponse = { 
+        id: Date.now() + 1, 
+        text: getBotResponse(inputValue), 
+        sender: 'bot' 
+      };
+      setMessages(prev => [...prev, botResponse]);
+    }, 1000);
+  };
+
+  const getBotResponse = (input: string) => {
+    const lowerInput = input.toLowerCase();
+    if (lowerInput.includes('menu') || lowerInput.includes('food')) {
+      return "You can check our menu in the Gallery section! We offer a variety of premium local dishes.";
+    } else if (lowerInput.includes('order') || lowerInput.includes('buy')) {
+      return "To place an order, you can call us at " + PHONE_NUMBER + " or message us on Facebook!";
+    } else if (lowerInput.includes('location') || lowerInput.includes('where')) {
+      return "We are located at " + ADDRESS + ". You can find the map link in the Contact section.";
+    } else if (lowerInput.includes('hours') || lowerInput.includes('time')) {
+      return "We are open daily from 10:00 AM to 9:00 PM.";
+    } else {
+      return "Thank you for your message! One of our team members will get back to you soon. For immediate assistance, please call us at " + PHONE_NUMBER + ".";
+    }
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-50">
+      {/* Chat Window */}
+      <div className="relative">
+        {isOpen && (
+          <div className="absolute -inset-4 bg-gold/10 blur-3xl rounded-full animate-pulse pointer-events-none" />
+        )}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ 
+            opacity: isOpen ? 1 : 0, 
+            scale: isOpen ? 1 : 0.8, 
+            y: isOpen ? 0 : 20,
+            pointerEvents: isOpen ? 'auto' : 'none'
+          }}
+          className="absolute bottom-20 right-0 w-80 sm:w-96 bg-luxury-gray border border-gold/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[500px]"
+        >
+        {/* Header */}
+        <div className="gold-gradient p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-black/20 flex items-center justify-center">
+              <Bot className="text-black" size={24} />
+            </div>
+            <div>
+              <h3 className="text-black font-bold text-sm">VRRM AI Assistant</h3>
+              <div className="flex items-center gap-1">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-black/70 text-[10px] uppercase font-bold tracking-wider">Online</span>
+              </div>
+            </div>
+          </div>
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="text-black/50 hover:text-black transition-colors"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gold/20">
+          {messages.map((msg) => (
+            <div 
+              key={msg.id} 
+              className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
+              <div className={`flex gap-2 max-w-[80%] ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center ${msg.sender === 'user' ? 'bg-gold/20' : 'bg-white/5 border border-gold/20'}`}>
+                  {msg.sender === 'user' ? <User size={16} className="text-gold" /> : <Bot size={16} className="text-gold" />}
+                </div>
+                <div className={`p-3 rounded-2xl text-sm ${
+                  msg.sender === 'user' 
+                    ? 'bg-gold text-black rounded-tr-none' 
+                    : 'bg-white/5 border border-white/10 text-gray-200 rounded-tl-none'
+                }`}>
+                  {msg.text}
+                </div>
+              </div>
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input */}
+        <form onSubmit={handleSendMessage} className="p-4 border-t border-white/10 bg-black/20">
+          <div className="relative">
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Type your message..."
+              className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-5 pr-12 text-sm focus:outline-none focus:border-gold/50 transition-colors"
+            />
+            <button 
+              type="submit"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full gold-gradient flex items-center justify-center text-black hover:scale-110 transition-transform"
+            >
+              <Send size={16} />
+            </button>
+          </div>
+        </form>
+      </motion.div>
+      </div>
+
+      {/* Toggle Button */}
+      <div className="relative">
+        {!isOpen && (
+          <div className="absolute inset-0 rounded-full bg-gold/20 blur-xl animate-pulse" />
+        )}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsOpen(!isOpen)}
+          className={`relative w-14 h-14 rounded-full gold-gradient flex items-center justify-center text-black shadow-2xl transition-all duration-300 ${!isOpen ? 'glow-pulse' : ''}`}
+        >
+          {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
+        </motion.button>
+      </div>
     </div>
   );
 }

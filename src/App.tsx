@@ -1,0 +1,473 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { 
+  Phone, 
+  MapPin, 
+  Clock, 
+  Utensils, 
+  ShoppingBag, 
+  Star, 
+  ChevronRight, 
+  ExternalLink,
+  ChefHat,
+  ShieldCheck,
+  MessageCircle
+} from 'lucide-react';
+import { motion } from 'motion/react';
+
+const BUSINESS_NAME = "VRRM FOOD HOUSE";
+const LOGO_IMAGE = "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/444943149_888039880016817_2958391694222392449_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=53a332&_nc_ohc=lYdbZNAkNTAQ7kNvwFSyqrg&_nc_oc=Ado5oY6cKNjEeNTmg8Cf7fwalMv4sLaOlLdeQC9EIdrEtkFPvEWX5kuXZU8SbPwkdTw&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=O_GHzjQDAIksupDmumh4HQ&_nc_ss=7a32e&oh=00_AfyWQeSAMrAS_lLNBpLB1u8fyWwJ6rtRmayPvdjNcqX1og&oe=69CAC9B2";
+const PHONE_NUMBER = "+639266137337";
+const ADDRESS = "Mabuhay City, Phase 1 Paoay St, Cabuyao City, 4025 Laguna, Philippines";
+const MAP_LINK = "https://maps.app.goo.gl/SM8gqvenfNNYRHyg9";
+
+const HERO_IMAGE = "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/487207286_1107239101430226_1031017327083241454_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_ohc=mH-bmz6__MUQ7kNvwFKHt6b&_nc_oc=Adppd3eAX34pLX6bFNM2xbxyuwr_yts4m0LPG_j1_pKPHRDLWtAfnYc4tXll0sD9Coo&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=oAsKwz6G_UfgJlJlCJGYYw&_nc_ss=7a32e&oh=00_Afzt-e7bx1ba5vEf5M5P3-dmlU-K4jceMDhzXWdfy2Rt7A&oe=69CAD41A";
+
+const GALLERY_IMAGES = [
+  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/525411345_1206074598213342_3503554782158494913_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=i-yO7QM5R2QQ7kNvwE6MUMI&_nc_oc=AdqrxCkxnoRaaHnNy77IHhvhDltsx_kIth8ZLO2l7Ig-dLUw-arB6J1bMdGHcxnt4zg&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=s7-xLte_1InV2WkeGQBPkw&_nc_ss=7a3a8&oh=00_AfyxF9FZ6VuFWIEqOs3AMmtDLuop_m6-w8teZNL5L4ubhw&oe=69CAB56C",
+  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/518346639_1190191446468324_3142475147672541193_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_ohc=5NDqZzXt4LAQ7kNvwEmW938&_nc_oc=AdrYh_ky9aWROd6zjpYPR8DcaH0P5kt3EGzJ_-_3e6gpOeUYh3vDVch68AW-J-tBIr8&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=WJTh9Fclh1QUyIWXLmJgVA&_nc_ss=7a32e&oh=00_AfyrPnBMUo4kI7q3iaw06r0RsW7eVFLp4KktWhURpJSjJg&oe=69CADEB1",
+  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/517235589_1187491963404939_2832507753178426654_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_ohc=DEweoHcqJNEQ7kNvwHO6wjM&_nc_oc=Ado2Y7iNM7hIWljDNTh09Cd_DvSjhZ7IKFUKQWQmgZDx8J814xM914nNuGMZilnRF5M&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=5jIxrKYYApZIbQG9doJxYQ&_nc_ss=7a32e&oh=00_AfzfkS-QC1-m59A0LfnNayklfzlI9amHf6uokKpPmyAc8A&oe=69CABDD4",
+  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/518275500_1187491916738277_8884713027819712543_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=ZS9qwd7_gsgQ7kNvwH2ak8T&_nc_oc=AdouprzEqZKYDvJ3ggcnNQU1OYAWhoU9-DBZR316mCYl0GBpoGmILIbfGbpFvLqfCl8&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=s_f-PsU5kD2qmrDyfKGRqQ&_nc_ss=7a32e&oh=00_AfwJbp1d23_EIV0qvxOr0WFHn-qLOJfunuSn8C2UUsfq8Q&oe=69CAB84A",
+  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/515437973_1181360844018051_6211234778956483128_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7b2446&_nc_ohc=QPlzkT7nj7EQ7kNvwFm0qwT&_nc_oc=AdoVhyfV0CSyC3T91e3k1x-sBPbHGcA-6fpO9e5SiMsyQDbCgUU_absnQ6qPzPcXCbo&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=eb5cjxTDdUMPmKU3YrgOPA&_nc_ss=7a32e&oh=00_AfyTMI1WQpsYQGdLBs4qEFJG8nQ0IlGfIePo_r2Kkf3Y3Q&oe=69CACD08",
+  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/517424855_1190192016468267_5118260958535757229_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_ohc=6hwr6fJP2e4Q7kNvwFJjg8Q&_nc_oc=Adq9fWWjkrY_TFEqqUNtdIo13jPM-k33sOskTLFPIyxZDFEkYTWkY4GCuun5d-MfxGQ&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=p_m_vIGNx6J9clfQwcFd6A&_nc_ss=7a3a8&oh=00_AfzlLJpwSCRDhmTIS4BZvv3By77yHts4Ey8bBSJZfeVpWw&oe=69CAADA1",
+];
+
+const TESTIMONIALS = [
+  {
+    name: "Juan Dela Cruz",
+    review: "Napakasarap ng pagkain dito sa VRRM Food House! Sulit na sulit ang bawat kagat. Ang ganda pa ng ambiance, talagang premium ang pakiramdam. Highly recommended!",
+    rating: 5
+  },
+  {
+    name: "Maria Clara",
+    review: "The best experience ever! Sobrang bait ng mga staff at napakabilis ng service. Ang sasarap ng mga putahe, babalik-balikan mo talaga. 5 stars!",
+    rating: 5
+  },
+  {
+    name: "Ricardo Dalisay",
+    review: "Talagang world-class ang lasa ng mga pagkain dito. Fresh na fresh ang ingredients at napakaganda ng presentation. Perfect para sa mga special occasions. Solid!",
+    rating: 5
+  }
+];
+
+export default function App() {
+  return (
+    <div className="min-h-screen selection:bg-gold selection:text-black">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 bg-luxury-black/80 backdrop-blur-md border-b border-gold/10">
+        <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img 
+              src={LOGO_IMAGE} 
+              alt="VRRM Logo" 
+              className="w-12 h-12 rounded-full object-cover border border-gold/30 shadow-lg shadow-gold/10"
+              referrerPolicy="no-referrer"
+            />
+            <span className="font-serif text-xl tracking-widest gold-text-gradient font-bold">
+              {BUSINESS_NAME}
+            </span>
+          </div>
+          <div className="flex items-center gap-4">
+            <a 
+              href={`tel:${PHONE_NUMBER}`}
+              className="hidden md:flex items-center gap-2 px-6 py-2 rounded-full border border-gold text-gold hover:bg-gold hover:text-black transition-all duration-300 font-medium"
+            >
+              <Phone size={18} />
+              <span>{PHONE_NUMBER}</span>
+            </a>
+            <a 
+              href="https://www.facebook.com/VRRMfoods/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-gold hover:text-white transition-colors"
+            >
+              <MessageCircle size={24} />
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section id="home" className="relative h-screen flex items-center pt-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={HERO_IMAGE} 
+            alt="VRRM Food House Hero" 
+            className="w-full h-full object-cover opacity-50"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/40 to-transparent" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl"
+          >
+            <div className="flex items-center gap-2 mb-6">
+              <div className="h-[1px] w-12 bg-gold" />
+              <span className="text-gold uppercase tracking-[0.3em] text-sm font-medium">Authentic Flavors in Cabuyao</span>
+            </div>
+            <motion.h1 
+              whileHover={{ scale: 1.02, textShadow: "0 0 20px rgba(212, 175, 55, 0.4)" }}
+              className="text-6xl md:text-8xl font-serif mb-6 leading-tight cursor-default transition-all duration-300"
+            >
+              Savor the <span className="gold-text-gradient italic">Excellence</span> <br />
+              of VRRM Foods.
+            </motion.h1>
+            <p className="text-xl text-gray-300 mb-10 max-w-xl leading-relaxed">
+              Discover a world of premium culinary delights. From our kitchen to your table, 
+              we bring the finest local flavors with a touch of luxury.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a 
+                href={`tel:${PHONE_NUMBER}`}
+                className="gold-gradient text-black px-10 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-xl shadow-gold/20"
+              >
+                <Phone size={20} />
+                Call to Order
+              </a>
+              <a 
+                href={MAP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/10 border border-white/20 backdrop-blur-md px-10 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 hover:bg-white/20 transition-all"
+              >
+                <MapPin size={20} />
+                Visit Us
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-24 bg-luxury-gray relative">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif mb-4">Our Services</h2>
+            <div className="h-1 w-20 bg-gold mx-auto" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Premium Dine-In",
+                desc: "Experience our warm hospitality and elegant atmosphere in the heart of Mabuhay City.",
+                icon: <Utensils className="text-gold" size={32} />,
+              },
+              {
+                title: "Gourmet Takeout",
+                desc: "Enjoy our signature dishes from the comfort of your home with our premium takeout service.",
+                icon: <ShoppingBag className="text-gold" size={32} />,
+              },
+              {
+                title: "Special Events",
+                desc: "Make your celebrations unforgettable with our customized catering and event services.",
+                icon: <ChefHat className="text-gold" size={32} />,
+              }
+            ].map((service, idx) => (
+              <motion.div 
+                key={idx}
+                whileHover={{ y: -10, scale: 1.02, boxShadow: "0 20px 40px rgba(212, 175, 55, 0.15)" }}
+                className="luxury-card p-8 flex flex-col items-center text-center group"
+              >
+                <div className="mb-6 p-4 rounded-full bg-gold/5 group-hover:bg-gold/10 transition-colors">
+                  {service.icon}
+                </div>
+                <h3 className="text-2xl font-serif mb-4">{service.title}</h3>
+                <p className="text-gray-400 leading-relaxed">
+                  {service.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section id="gallery" className="py-24 bg-luxury-black">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif mb-4">Product Showcase</h2>
+            <p className="text-gray-400">A glimpse into our culinary creations</p>
+            <div className="h-1 w-20 bg-gold mx-auto mt-4" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {GALLERY_IMAGES.map((img, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(212, 175, 55, 0.3)" }}
+                className="aspect-square rounded-lg overflow-hidden border border-gold/20 group cursor-pointer transition-all duration-300"
+              >
+                <img 
+                  src={img} 
+                  alt={`Gallery ${idx + 1}`} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  referrerPolicy="no-referrer"
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-24 bg-luxury-gray">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="relative">
+              <img 
+                src={GALLERY_IMAGES[0]} 
+                alt="VRRM Food House Interior" 
+                className="rounded-lg shadow-2xl luxury-border w-full aspect-video object-cover"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute -bottom-8 -right-8 bg-gold p-8 rounded-lg hidden md:block">
+                <p className="text-black font-serif text-2xl italic">"Taste the Passion."</p>
+              </div>
+            </div>
+            <div>
+              <span className="text-gold uppercase tracking-widest text-sm mb-4 block">Our Story</span>
+              <h2 className="text-4xl md:text-5xl font-serif mb-8">Crafting Memories Through Food</h2>
+              <p className="text-gray-400 text-lg leading-relaxed mb-6">
+                VRRM FOOD HOUSE was born from a love for authentic local flavors and a desire to provide a premium dining experience to the Cabuyao community. 
+              </p>
+              <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                Every dish we serve is a testament to our commitment to quality, using only the freshest ingredients and traditional techniques with a modern twist.
+              </p>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck className="text-gold shrink-0" size={24} />
+                  <div>
+                    <h4 className="font-serif text-xl">Quality First</h4>
+                    <p className="text-sm text-gray-500">Fresh and safe food.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Star className="text-gold shrink-0" size={24} />
+                  <div>
+                    <h4 className="font-serif text-xl">Top Rated</h4>
+                    <p className="text-sm text-gray-500">Loved by locals.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-24 bg-luxury-black">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif mb-4">What Our Guests Say</h2>
+            <div className="h-1 w-20 bg-gold mx-auto" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {TESTIMONIALS.map((t, idx) => (
+              <motion.div 
+                key={idx}
+                whileHover={{ y: -5, scale: 1.02, boxShadow: "0 15px 30px rgba(212, 175, 55, 0.1)" }}
+                className="luxury-card p-8 flex flex-col h-full"
+              >
+                <div className="flex gap-1 mb-4">
+                  {[...Array(t.rating)].map((_, i) => (
+                    <Star key={i} size={16} className="fill-gold text-gold" />
+                  ))}
+                </div>
+                <p className="text-gray-300 italic mb-6 flex-grow">"{t.review}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold">
+                    {t.name[0]}
+                  </div>
+                  <span className="font-serif text-lg">{t.name}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trust / Reassurance Section */}
+      <section className="py-20 bg-luxury-gray border-y border-gold/10">
+        <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-12 md:gap-24">
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-gold font-serif text-4xl">100%</span>
+            <span className="text-xs uppercase tracking-widest text-gray-500">Fresh Ingredients</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-gold font-serif text-4xl">Premium</span>
+            <span className="text-xs uppercase tracking-widest text-gray-500">Dining Experience</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-gold font-serif text-4xl">Local</span>
+            <span className="text-xs uppercase tracking-widest text-gray-500">Cabuyao Pride</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-gold font-serif text-4xl">Expert</span>
+            <span className="text-xs uppercase tracking-widest text-gray-500">Culinary Team</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Location Section */}
+      <section className="py-24 bg-luxury-black">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif mb-4">Visit Us</h2>
+            <p className="text-gray-400">Find us in the heart of Mabuhay City</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 h-[400px] rounded-lg overflow-hidden luxury-border">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3866.452601955353!2d121.1215!3d14.2585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d09930f3c5b5%3A0x88f56113b5e5f5f5!2sMabuhay%20City%2C%20Cabuyao%2C%20Laguna!5e0!3m2!1sen!2sph!4v1711440000000!5m2!1sen!2sph" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <div className="luxury-card p-8 flex flex-col justify-center">
+              <div className="space-y-8">
+                <div className="flex gap-4">
+                  <div className="p-3 rounded-full bg-gold/10 text-gold">
+                    <MapPin size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-serif text-xl mb-2">Our Address</h4>
+                    <p className="text-gray-400 leading-relaxed">
+                      {ADDRESS}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="p-3 rounded-full bg-gold/10 text-gold">
+                    <Clock size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-serif text-xl mb-2">Opening Hours</h4>
+                    <p className="text-gray-400">Monday - Sunday: 10:00 AM - 9:00 PM</p>
+                  </div>
+                </div>
+                <a 
+                  href={MAP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-4 border border-gold text-gold rounded-full flex items-center justify-center gap-2 hover:bg-gold hover:text-black transition-all"
+                >
+                  Open in Google Maps
+                  <ExternalLink size={16} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact / CTA Section */}
+      <section id="contact" className="py-24 bg-luxury-gray relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-gold rounded-full" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-gold rounded-full" />
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+          <h2 className="text-5xl md:text-7xl font-serif mb-8">Ready to <span className="gold-text-gradient italic">Experience</span> VRRM?</h2>
+          <p className="text-xl text-gray-400 mb-12">
+            Join us for an unforgettable dining experience or order your favorite dishes for delivery. 
+            We are dedicated to bringing you the best flavors in Cabuyao.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <motion.a 
+              whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(212, 175, 55, 0.2)" }}
+              href={`tel:${PHONE_NUMBER}`}
+              className="luxury-card p-6 flex items-center justify-center gap-4 hover:border-gold transition-colors group"
+            >
+              <div className="p-3 rounded-full bg-gold/10 text-gold group-hover:bg-gold group-hover:text-black transition-all">
+                <Phone size={24} />
+              </div>
+              <div className="text-left">
+                <p className="text-xs uppercase tracking-widest text-gray-500">Call Us</p>
+                <p className="text-xl font-serif">{PHONE_NUMBER}</p>
+              </div>
+            </motion.a>
+            <motion.a 
+              whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(212, 175, 55, 0.2)" }}
+              href="https://www.facebook.com/VRRMfoods/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="luxury-card p-6 flex items-center justify-center gap-4 hover:border-gold transition-colors group"
+            >
+              <div className="p-3 rounded-full bg-gold/10 text-gold group-hover:bg-gold group-hover:text-black transition-all">
+                <MessageCircle size={24} />
+              </div>
+              <div className="text-left">
+                <p className="text-xs uppercase tracking-widest text-gray-500">Facebook</p>
+                <p className="text-xl font-serif">VRRM Foods</p>
+              </div>
+            </motion.a>
+          </div>
+
+          <a 
+            href={`tel:${PHONE_NUMBER}`}
+            className="gold-gradient text-black px-16 py-6 rounded-full font-bold text-2xl inline-flex items-center gap-3 hover:scale-105 transition-transform shadow-2xl shadow-gold/30"
+          >
+            <Phone size={28} />
+            Order Now
+          </a>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 bg-luxury-black border-t border-gold/10">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="flex items-center gap-3">
+              <img 
+                src={LOGO_IMAGE} 
+                alt="VRRM Logo" 
+                className="w-10 h-10 rounded-full object-cover border border-gold/20"
+                referrerPolicy="no-referrer"
+              />
+              <span className="font-serif text-lg tracking-widest gold-text-gradient font-bold">
+                {BUSINESS_NAME}
+              </span>
+            </div>
+            
+            <div className="flex gap-8 text-gray-500 text-sm uppercase tracking-widest">
+              <a href="#home" className="hover:text-gold transition-colors">Home</a>
+              <a href="#gallery" className="hover:text-gold transition-colors">Gallery</a>
+              <a href="#testimonials" className="hover:text-gold transition-colors">Reviews</a>
+              <a href="#about" className="hover:text-gold transition-colors">About</a>
+              <a href="#contact" className="hover:text-gold transition-colors">Contact</a>
+            </div>
+
+            <p className="text-gray-600 text-sm">
+              &copy; {new Date().getFullYear()} {BUSINESS_NAME}. All rights reserved.
+            </p>
+          </div>
+          <div className="mt-8 pt-8 border-t border-white/5 text-center">
+            <p className="text-gray-600 text-xs max-w-2xl mx-auto">
+              {ADDRESS}
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}

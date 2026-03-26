@@ -1,0 +1,5 @@
+{
+  "name": "VRRM FOOD HOUSE",
+  "description": "Premium restaurant in Mabuhay City, Cabuyao, Laguna. Experience luxury dining and local flavors.",
+  "requestFramePermissions": ["geolocation"]
+}

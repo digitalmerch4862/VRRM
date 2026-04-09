@@ -25,20 +25,20 @@ import {
 import { motion } from 'motion/react';
 
 const BUSINESS_NAME = "VRRM FOOD HOUSE";
-const LOGO_IMAGE = "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/444943149_888039880016817_2958391694222392449_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=53a332&_nc_ohc=lYdbZNAkNTAQ7kNvwFSyqrg&_nc_oc=Ado5oY6cKNjEeNTmg8Cf7fwalMv4sLaOlLdeQC9EIdrEtkFPvEWX5kuXZU8SbPwkdTw&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=O_GHzjQDAIksupDmumh4HQ&_nc_ss=7a32e&oh=00_AfyWQeSAMrAS_lLNBpLB1u8fyWwJ6rtRmayPvdjNcqX1og&oe=69CAC9B2";
+const LOGO_IMAGE = "https://picsum.photos/seed/pizza-icon/200/200";
 const PHONE_NUMBER = "+639266137337";
 const ADDRESS = "Mabuhay City, Phase 1 Paoay St, Cabuyao City, 4025 Laguna, Philippines";
 const MAP_LINK = "https://maps.app.goo.gl/SM8gqvenfNNYRHyg9";
 
-const HERO_IMAGE = "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/487207286_1107239101430226_1031017327083241454_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_ohc=mH-bmz6__MUQ7kNvwFKHt6b&_nc_oc=Adppd3eAX34pLX6bFNM2xbxyuwr_yts4m0LPG_j1_pKPHRDLWtAfnYc4tXll0sD9Coo&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=oAsKwz6G_UfgJlJlCJGYYw&_nc_ss=7a32e&oh=00_Afzt-e7bx1ba5vEf5M5P3-dmlU-K4jceMDhzXWdfy2Rt7A&oe=69CAD41A";
+const HERO_IMAGE = "https://picsum.photos/seed/spaghetti-luxury/1920/1080";
 
 const GALLERY_IMAGES = [
-  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/525411345_1206074598213342_3503554782158494913_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=i-yO7QM5R2QQ7kNvwE6MUMI&_nc_oc=AdqrxCkxnoRaaHnNy77IHhvhDltsx_kIth8ZLO2l7Ig-dLUw-arB6J1bMdGHcxnt4zg&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=s7-xLte_1InV2WkeGQBPkw&_nc_ss=7a3a8&oh=00_AfyxF9FZ6VuFWIEqOs3AMmtDLuop_m6-w8teZNL5L4ubhw&oe=69CAB56C",
-  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/518346639_1190191446468324_3142475147672541193_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_ohc=5NDqZzXt4LAQ7kNvwEmW938&_nc_oc=AdrYh_ky9aWROd6zjpYPR8DcaH0P5kt3EGzJ_-_3e6gpOeUYh3vDVch68AW-J-tBIr8&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=WJTh9Fclh1QUyIWXLmJgVA&_nc_ss=7a32e&oh=00_AfyrPnBMUo4kI7q3iaw06r0RsW7eVFLp4KktWhURpJSjJg&oe=69CADEB1",
-  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/517235589_1187491963404939_2832507753178426654_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_ohc=DEweoHcqJNEQ7kNvwHO6wjM&_nc_oc=Ado2Y7iNM7hIWljDNTh09Cd_DvSjhZ7IKFUKQWQmgZDx8J814xM914nNuGMZilnRF5M&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=5jIxrKYYApZIbQG9doJxYQ&_nc_ss=7a32e&oh=00_AfzfkS-QC1-m59A0LfnNayklfzlI9amHf6uokKpPmyAc8A&oe=69CABDD4",
-  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/518275500_1187491916738277_8884713027819712543_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=ZS9qwd7_gsgQ7kNvwH2ak8T&_nc_oc=AdouprzEqZKYDvJ3ggcnNQU1OYAWhoU9-DBZR316mCYl0GBpoGmILIbfGbpFvLqfCl8&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=s_f-PsU5kD2qmrDyfKGRqQ&_nc_ss=7a32e&oh=00_AfwJbp1d23_EIV0qvxOr0WFHn-qLOJfunuSn8C2UUsfq8Q&oe=69CAB84A",
-  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/515437973_1181360844018051_6211234778956483128_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7b2446&_nc_ohc=QPlzkT7nj7EQ7kNvwFm0qwT&_nc_oc=AdoVhyfV0CSyC3T91e3k1x-sBPbHGcA-6fpO9e5SiMsyQDbCgUU_absnQ6qPzPcXCbo&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=eb5cjxTDdUMPmKU3YrgOPA&_nc_ss=7a32e&oh=00_AfyTMI1WQpsYQGdLBs4qEFJG8nQ0IlGfIePo_r2Kkf3Y3Q&oe=69CACD08",
-  "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/517424855_1190192016468267_5118260958535757229_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_ohc=6hwr6fJP2e4Q7kNvwFJjg8Q&_nc_oc=Adq9fWWjkrY_TFEqqUNtdIo13jPM-k33sOskTLFPIyxZDFEkYTWkY4GCuun5d-MfxGQ&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=p_m_vIGNx6J9clfQwcFd6A&_nc_ss=7a3a8&oh=00_AfzlLJpwSCRDhmTIS4BZvv3By77yHts4Ey8bBSJZfeVpWw&oe=69CAADA1",
+  "https://picsum.photos/seed/spaghetti-meatballs/800/800",
+  "https://picsum.photos/seed/pizza-oven/800/800",
+  "https://picsum.photos/seed/spaghetti-carbonara/800/800",
+  "https://picsum.photos/seed/pizza-slice-luxury/800/800",
+  "https://picsum.photos/seed/spaghetti-pesto/800/800",
+  "https://picsum.photos/seed/pizza-supreme/800/800",
 ];
 
 const TESTIMONIALS = [
